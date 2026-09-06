@@ -45,6 +45,11 @@ export default function Services() {
 
   const visible = servicesList.filter(s => filter === 'all' || s.cat === filter);
 
+  const handleFilter = (f) => {
+    setFilter(f);
+    setOpenSlug(null);
+  };
+
   return (
     <Page id="services" label={sitewide.seoTitles?.['/services'] || 'Services'}>
       <PageHero
@@ -60,7 +65,7 @@ export default function Services() {
             <ChipGroup
               options={chipOptions}
               active={filter}
-              onSelect={setFilter}
+              onSelect={handleFilter}
               ariaLabel="Filter services"
             />
           </Reveal>

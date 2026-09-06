@@ -1,15 +1,17 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Reveal({ as: Tag = 'div', delay, className = '', children, style, ...rest }) {
   const ref = useRef(null);
+  const [shown, setShown] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (el.getBoundingClientRect().top < window.innerHeight) setShown(true);
     const io = new IntersectionObserver(
       entries => {
         entries.forEach(en => {
-          if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+          if (en.isIntersecting) { setShown(true); io.unobserve(en.target); }
         });
       },
       { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
@@ -24,7 +26,7 @@ export default function Reveal({ as: Tag = 'div', delay, className = '', childre
   };
 
   return (
-    <Tag ref={ref} className={`rv ${className}`.trim()} style={mergedStyle} {...rest}>
+    <Tag ref={ref} className={`rv${shown ? ' in' : ''} ${className}`.trim()} style={mergedStyle} {...rest}>
       {children}
     </Tag>
   );
