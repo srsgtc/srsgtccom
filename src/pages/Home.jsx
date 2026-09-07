@@ -94,9 +94,10 @@ export default function Home() {
   const site = getPage('sitewide');
   const servicesData = getPage('services');
   const servicesList = servicesData.list?.items || [];
+  const seoHome = getPage('seo')['/'] || {};
 
   return (
-    <Page id="home" label={site.seoTitles?.['/'] || 'Home'}>
+    <Page id="home" label={seoHome.title || 'Home'}>
       <div className="hero grid-bg">
         <svg className="topo-deco" style={{ left: -90, top: -70, width: 520, height: 520 }} aria-hidden="true"><use href="#topo" /></svg>
         <div className="wrap">

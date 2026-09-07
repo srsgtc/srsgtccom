@@ -72,6 +72,7 @@ export default function Projects() {
   const cta = page.ctaBand || {};
   const sitewide = getPage('sitewide');
   const ui = sitewide.ui || {};
+  const seoPage = getPage('seo')['/projects'] || {};
 
   const galleryList = page.gallery?.items || [];
   const assignList = assign.list || [];
@@ -96,7 +97,7 @@ export default function Projects() {
   const step = d => setLb(s => ({ ...s, index: (s.index + d + s.list.length) % s.list.length }));
 
   return (
-    <Page id="projects" label={sitewide.seoTitles?.['/projects'] || 'Projects and gallery'}>
+    <Page id="projects" label={seoPage.title || 'Projects and gallery'}>
       <PageHero
         kick={hero.kick}
         title={hero.title}

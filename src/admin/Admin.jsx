@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { NavLink, Routes, Route, Navigate, Link } from 'react-router-dom';
 import Login from './Login';
 import PageEditor from './PageEditor';
@@ -16,7 +17,15 @@ export default function Admin() {
         }
     }, []);
 
-    if (!auth) return <Login onLogin={() => setAuth(true)} />;
+    if (!auth) return (
+        <>
+            <Helmet>
+                <meta name="robots" content="noindex, nofollow" />
+                <meta name="googlebot" content="noindex, nofollow" />
+            </Helmet>
+            <Login onLogin={() => setAuth(true)} />
+        </>
+    );
 
     const navLinkStyle = ({ isActive }) => ({
         display: 'block',
@@ -30,9 +39,15 @@ export default function Admin() {
 
     return (
         <div style={{ display: 'flex', minHeight: '100vh', background: '#f0f2f5', fontFamily: 'system-ui, sans-serif' }}>
+            <Helmet>
+                <title>Content Admin — SRS Geotech & Construction</title>
+                <meta name="robots" content="noindex, nofollow" />
+                <meta name="googlebot" content="noindex, nofollow" />
+            </Helmet>
             <aside style={{ width: 240, background: '#1c2530', color: '#fff', padding: 24, display: 'flex', flexDirection: 'column' }}>
                 <h2 style={{ fontSize: 20, marginBottom: 32, color: '#FF7315', marginTop: 0 }}>Content Admin</h2>
                 <nav style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    <NavLink to="/admin/seo" style={navLinkStyle}>SEO</NavLink>
                     <NavLink to="/admin/sitewide" style={navLinkStyle}>Sitewide</NavLink>
                     <NavLink to="/admin/home" style={navLinkStyle}>Home</NavLink>
                     <NavLink to="/admin/about" style={navLinkStyle}>About</NavLink>

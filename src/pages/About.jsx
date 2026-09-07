@@ -20,9 +20,10 @@ export default function About() {
   const profileList = story.profile || [];
   const principlesList = principles.list || [];
   const functionsList = team.functions || [];
+  const seoPage = getPage('seo')['/about'] || {};
 
   return (
-    <Page id="about" label={site.seoTitles?.['/about'] || 'About us'}>
+    <Page id="about" label={seoPage.title || 'About us'}>
       <PageHero
         kick={hero.kick}
         title={hero.title}

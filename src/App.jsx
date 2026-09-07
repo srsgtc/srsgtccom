@@ -1,5 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react';
-import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import SvgSprite from './components/SvgSprite';
 import Header from './components/Header';
@@ -7,29 +7,18 @@ import Footer from './components/Footer';
 import MobileBar from './components/MobileBar';
 import BackToTop from './components/BackToTop';
 import { ToastProvider } from './components/Toast';
+import SeoHead from './components/SeoHead';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
-import { useSiteContent } from './content/SiteContentProvider';
+import NotFound from './pages/NotFound';
 import { supabaseKeepAlive } from './supabase';
 
 const Admin = lazy(() => import('./admin/Admin'));
 
-function usePageTitle() {
-  const { pathname } = useLocation();
-  const { getPage } = useSiteContent();
-  const titles = getPage('sitewide').seoTitles || {};
-
-  useEffect(() => {
-    const key = pathname.startsWith('/services') ? '/services' : pathname;
-    document.title = titles[key] || titles['/'] || 'SRS Geotech & Construction';
-  }, [pathname, titles]);
-}
-
 export default function App() {
-  usePageTitle();
   const location = useLocation();
 
   useEffect(() => {
@@ -48,8 +37,15 @@ export default function App() {
     );
   }
 
+  const knownRoutes = ['/', '/about', '/services', '/projects', '/contact'];
+  const isUnknown = !knownRoutes.some(p =>
+    location.pathname === p ||
+    (p !== '/' && location.pathname.startsWith(p + '/'))
+  );
+
   return (
     <ToastProvider>
+      <SeoHead path={location.pathname} noindex={isUnknown} />
       <ScrollToTop />
       <a className="skip" href="#main">Skip to main content</a>
       <SvgSprite />
@@ -63,7 +59,7 @@ export default function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin/*" element={<Admin />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />

@@ -23,6 +23,7 @@ export default function Services() {
   const cta = page.ctaBand || {};
   const catsList = page.categories?.cats || [];
   const servicesList = page.list?.items || [];
+  const seoPage = getPage('seo')['/services'] || {};
 
   const catsDict = Object.fromEntries(catsList.map(c => [c.key, c.label]));
 
@@ -51,7 +52,7 @@ export default function Services() {
   };
 
   return (
-    <Page id="services" label={sitewide.seoTitles?.['/services'] || 'Services'}>
+    <Page id="services" label={seoPage.title || 'Services'}>
       <PageHero
         kick={hero.kick}
         title={hero.title}

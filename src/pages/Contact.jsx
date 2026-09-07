@@ -233,9 +233,10 @@ export default function Contact() {
   const sidebar = pageContent.sidebar || {};
   const sitewide = getPage('sitewide');
   const brand = sitewide.brand || {};
+  const seoPage = getPage('seo')['/contact'] || {};
 
   return (
-    <Page id="contact" label={sitewide.seoTitles?.['/contact'] || 'Contact'}>
+    <Page id="contact" label={seoPage.title || 'Contact'}>
       <PageHero
         kick={hero.kick}
         title={hero.title}

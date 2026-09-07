@@ -3,6 +3,26 @@ import { useSiteContent } from '../content/SiteContentProvider';
 import { uploadImage } from '../supabase';
 
 function FieldEditor({ field, value, onChange }) {
+    if (field.type === 'object') {
+        const objVal = (value && typeof value === 'object') ? value : {};
+        return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 16, border: '1px solid #e5e7eb', background: '#f9fafb', borderRadius: 4 }}>
+                {field.objectFields && field.objectFields.map(of => (
+                    <div key={of.name}>
+                        <label style={{ display: 'block', fontSize: 12, marginBottom: 6, fontWeight: 500, color: '#374151' }}>{of.label}</label>
+                        <FieldEditor
+                            field={of}
+                            value={objVal[of.name]}
+                            onChange={v => {
+                                onChange({ ...objVal, [of.name]: v });
+                            }}
+                        />
+                    </div>
+                ))}
+            </div>
+        );
+    }
+
     if (field.type === 'textarea') {
         return (
             <textarea

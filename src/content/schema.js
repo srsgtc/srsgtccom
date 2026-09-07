@@ -132,17 +132,6 @@ export const SCHEMA = {
                 ],
                 defaultContent: CONTACT
             },
-            seoTitles: {
-                label: 'Page Titles (SEO)',
-                fields: [
-                    { name: '/', label: 'Home Title', type: 'text' },
-                    { name: '/about', label: 'About Title', type: 'text' },
-                    { name: '/services', label: 'Services Title', type: 'text' },
-                    { name: '/projects', label: 'Projects Title', type: 'text' },
-                    { name: '/contact', label: 'Contact Title', type: 'text' },
-                ],
-                defaultContent: TITLES
-            },
             nav: {
                 label: 'Navigation Labels',
                 fields: [
@@ -187,6 +176,70 @@ export const SCHEMA = {
                     btnRequestService: 'Request this service',
                     toastSuccess: 'Your message has been sent. We will respond shortly.',
                     toastFail: 'Failed to send your message. Please try again.'
+                }
+            }
+        }
+    },
+    seo: {
+        label: 'SEO',
+        sections: {
+            metadata: {
+                label: 'Search Engine & Social Metadata',
+                fields: [
+                    { name: 'ogImage', label: 'Default Open Graph Image URL (1200×630)', type: 'image' },
+                    { name: '/', label: 'Home Page', type: 'object', objectFields: [
+                        { name: 'title', label: 'Page Title', type: 'text' },
+                        { name: 'description', label: 'Meta Description', type: 'textarea' },
+                        { name: 'ogImage', label: 'OG Image URL', type: 'image' }
+                    ] },
+                    { name: '/about', label: 'About Page', type: 'object', objectFields: [
+                        { name: 'title', label: 'Page Title', type: 'text' },
+                        { name: 'description', label: 'Meta Description', type: 'textarea' },
+                        { name: 'ogImage', label: 'OG Image URL', type: 'image' }
+                    ] },
+                    { name: '/services', label: 'Services Page', type: 'object', objectFields: [
+                        { name: 'title', label: 'Page Title', type: 'text' },
+                        { name: 'description', label: 'Meta Description', type: 'textarea' },
+                        { name: 'ogImage', label: 'OG Image URL', type: 'image' }
+                    ] },
+                    { name: '/projects', label: 'Projects Page', type: 'object', objectFields: [
+                        { name: 'title', label: 'Page Title', type: 'text' },
+                        { name: 'description', label: 'Meta Description', type: 'textarea' },
+                        { name: 'ogImage', label: 'OG Image URL', type: 'image' }
+                    ] },
+                    { name: '/contact', label: 'Contact Page', type: 'object', objectFields: [
+                        { name: 'title', label: 'Page Title', type: 'text' },
+                        { name: 'description', label: 'Meta Description', type: 'textarea' },
+                        { name: 'ogImage', label: 'OG Image URL', type: 'image' }
+                    ] }
+                ],
+                defaultContent: {
+                    ogImage: 'https://srsgeotech.com/og-image.jpg',
+                    '/': {
+                        title: TITLES['/'],
+                        description: 'SRS Geotech & Construction provides geotechnical, soil testing and construction services in Raigad, Maharashtra. Plate load, CBR, investigation, marine, survey, resistivity and anchoring — established 2021.',
+                        ogImage: 'https://srsgeotech.com/og-image.jpg'
+                    },
+                    '/about': {
+                        title: TITLES['/about'],
+                        description: 'About SRS Geotech & Construction — a proprietorship founded 2021 in Raigad, Maharashtra, delivering owner-led geotechnical, soil testing and survey services with a small, accountable team.',
+                        ogImage: 'https://srsgeotech.com/og-image.jpg'
+                    },
+                    '/services': {
+                        title: TITLES['/services'],
+                        description: 'Explore SRS Geotech & Construction services — plate load testing, soil CBR, geotechnical & marine investigation, rock anchoring, GIS, topographic survey, resistivity testing and geotechnical engineering.',
+                        ogImage: 'https://srsgeotech.com/og-image.jpg'
+                    },
+                    '/projects': {
+                        title: TITLES['/projects'],
+                        description: 'A gallery of geotechnical and soil testing field work by SRS Geotech & Construction — borehole investigation, plate load, soil CBR, marine investigation, rock anchoring, GIS and topographic survey.',
+                        ogImage: 'https://srsgeotech.com/og-image.jpg'
+                    },
+                    '/contact': {
+                        title: TITLES['/contact'],
+                        description: 'Contact SRS Geotech & Construction in Raigad, Maharashtra to request a geotechnical, soil testing or survey quote. Call, WhatsApp or email our owner-led team today.',
+                        ogImage: 'https://srsgeotech.com/og-image.jpg'
+                    }
                 }
             }
         }
